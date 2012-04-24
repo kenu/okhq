@@ -16,5 +16,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/okjsp2007"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="output" path="build/WEB-INF/classes"/>
 </classpath>

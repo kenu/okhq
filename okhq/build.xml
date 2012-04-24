@@ -17,19 +17,33 @@
 	<!-- ================================= 
           target: build              
          ================================= -->
-	<target name="build" depends="clean" description="description">
+	<target name="build" depends="clean" description="build project">
 		<javac srcdir="src" destdir="build/WEB-INF/classes" classpathref="compile.classpath" debug="on" />
 		<copy todir="build">
 			<fileset dir="WebContent" id="web">
-				<include name="*"/>
+				<include name="**/*" />
 			</fileset>
 		</copy>
 	</target>
 
 	<!-- - - - - - - - - - - - - - - - - - 
+          target: deploy                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="deploy" depends="build" description="deploy">
+		<war destfile="okhq.war"
+			 needxmlfile='false'>
+			<fileset dir="build" id="build">
+				<include name="*"/>
+			</fileset>
+		</war>
+	</target>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
           target: clean                      
          - - - - - - - - - - - - - - - - - -->
 	<target name="clean">
+		<delete dir="build"></delete>
 		<mkdir dir="build/WEB-INF/classes" />
 	</target>
 
