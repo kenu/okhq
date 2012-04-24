@@ -5,6 +5,10 @@ font-size: smaller;
 .number {
 text-align: right;
 }
+.warning {
+color: #f00;
+font-weight: bold;
+}
 table {
 border: 1px solid #ccc;
 margin: 0 auto;
