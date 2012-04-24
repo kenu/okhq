@@ -36,6 +36,8 @@
 				<include name="**/*"/>
 			</fileset>
 		</war>
+		
+		<move file="okhq.war" todir="${catalina.home}/webapps"></move>
 	</target>
 
 
