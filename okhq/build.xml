@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="build">
+	<description>
+            description
+    </description>
+	<property name="catalina.home" value="/Users/kenu/okjsp/apache-tomcat-7.0.20" />
+	<path id="compile.classpath">
+		<fileset dir="${catalina.home}/lib">
+			<include name="*.jar" />
+		</fileset>
+
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- ================================= 
+          target: build              
+         ================================= -->
+	<target name="build" depends="clean" description="description">
+		<javac srcdir="src" destdir="build/WEB-INF/classes" classpathref="compile.classpath" debug="on" />
+		<copy todir="build">
+			<fileset dir="WebContent" id="web">
+				<include name="*"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clean                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="clean">
+		<mkdir dir="build/WEB-INF/classes" />
+	</target>
+
+</project>
