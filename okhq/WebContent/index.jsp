@@ -8,19 +8,7 @@
 <head>
 <meta charset="utf-8">
 <title>AD Click</title>
-<style type="text/css">
-* {
-text-align: center;
-font-size: smaller;
-}
-.number {
-text-align: right;
-}
-table {
-border: 1px solid #ccc;
-margin: 0 auto;
-}
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <h1>Daily Click</h1>

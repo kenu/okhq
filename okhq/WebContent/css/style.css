@@ -1,0 +1,11 @@
+* {
+text-align: center;
+font-size: smaller;
+}
+.number {
+text-align: right;
+}
+table {
+border: 1px solid #ccc;
+margin: 0 auto;
+}
