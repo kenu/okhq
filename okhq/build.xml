@@ -33,7 +33,7 @@
 		<war destfile="okhq.war"
 			 needxmlfile='false'>
 			<fileset dir="build" id="build">
-				<include name="*"/>
+				<include name="**/*"/>
 			</fileset>
 		</war>
 	</target>
