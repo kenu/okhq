@@ -1,8 +1,9 @@
 <%@page import="java.util.List"%>
 <%@page import="kr.pe.okjsp.okhq.AdLogStatDto"%>
 <%@page import="kr.pe.okjsp.okhq.AdLogStatDao"%>
-<%@ page language="java" contentType="text/html; charset="
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ include file="/check.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
