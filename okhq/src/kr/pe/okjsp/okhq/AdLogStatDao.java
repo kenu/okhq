@@ -14,7 +14,7 @@ public class AdLogStatDao {
 	private String AD_LOG_STAT = "select date_format(credate, '%Y-%m-%d') as ldate, " +
 			"count(date_format(credate, '%Y-%m-%d')) as lcount " +
 			"from okad_log group by date_format(credate, '%Y-%m-%d') order by 1 desc";
-	private String AD_LOG_HISTORY = "select * from okad_log order by 1 desc limit 500";
+	private String AD_LOG_HISTORY = "select * from okad_log where url like 'app%' order by 1 desc limit 500";
 	DbCon dbCon = new DbCon();
 
 	public List<AdLogStatDto> getList() {
