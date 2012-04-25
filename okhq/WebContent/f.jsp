@@ -5,6 +5,7 @@
 	String url = request.getQueryString();
 	AdLogDao dao = new AdLogDao();
 	AdLog log = new AdLog();
+	if (url == null) return;
 	log.setUrl(url);
 	log.setReferer(request.getHeader("referer"));
 	log.setSid(CommonUtil.getCookieLong(request, "sid"));
