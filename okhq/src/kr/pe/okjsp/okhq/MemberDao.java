@@ -12,7 +12,8 @@ import kr.pe.okjsp.member.MemberHandler;
 import kr.pe.okjsp.util.DbCon;
 
 public class MemberDao extends MemberHandler {
-	private String AD_LOG_STAT = "select * from okmember order by sid desc";
+	private final String OKMEMBER_LIST = "select * from okmember order by sid desc";
+	private final String MAILING_LIST = "select * from okmember where mailing = 'Y   ' order by sid";
 	DbCon dbCon = new DbCon();
 
 	private Member getMember(ResultSet rs) throws SQLException {
@@ -36,7 +37,7 @@ public class MemberDao extends MemberHandler {
 		
 		try {
 			conn = dbCon.getConnection();
-			pstmt = conn.prepareStatement(AD_LOG_STAT);
+			pstmt = conn.prepareStatement(OKMEMBER_LIST);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(getMember(rs));
@@ -49,7 +50,7 @@ public class MemberDao extends MemberHandler {
 		}
 		return list;
 	}
-
+	
 	public List<Member> getList(int limit) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -59,7 +60,7 @@ public class MemberDao extends MemberHandler {
 		
 		try {
 			conn = dbCon.getConnection();
-			pstmt = conn.prepareStatement(AD_LOG_STAT + " limit "+ limit);
+			pstmt = conn.prepareStatement(OKMEMBER_LIST + " limit "+ limit);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(getMember(rs));
@@ -73,4 +74,27 @@ public class MemberDao extends MemberHandler {
 		return list;
 	}
 
+	public List<Member> getMailingList() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Member> list = new ArrayList<Member>();
+		
+		try {
+			conn = dbCon.getConnection();
+			pstmt = conn.prepareStatement(MAILING_LIST);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				list.add(getMember(rs));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbCon.close(conn, pstmt, rs);
+		}
+		return list;
+	}
+	
 }
