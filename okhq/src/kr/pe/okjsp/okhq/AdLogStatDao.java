@@ -18,6 +18,7 @@ public class AdLogStatDao {
 			"from okad_log group by date_format(credate, '%Y-%m-%d') order by 1 desc";
 	private String AD_LOG_HISTORY = "select * from okad_log where url like 'app%' order by 1 desc limit 500";
 	private String AD_LOG_HISTORY_OF_DATE = "select * from okad_log where credate between ? and ? order by url desc";
+	private String AD_LOG_SUMMARY_OF_DATE = "select url, count(*) `count` from okad_log where credate between ? and ? group by url";
 	DbCon dbCon = new DbCon();
 
 	public List<AdLogStatDto> getList() {
@@ -96,7 +97,38 @@ public class AdLogStatDao {
 				row.setLseq(rs.getLong("lseq"));
 				row.setCredate(rs.getTimestamp("credate"));
 				row.setUrl(rs.getString("url"));
+				row.setReferer(rs.getString("referer"));
 				row.setIp(rs.getString("ip"));
+				list.add(row);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			dbCon.close(conn, pstmt, rs);
+		}
+		return list;
+		
+	}
+	public List<AdLogSummary> getSummary(String date) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<AdLogSummary> list = new ArrayList<AdLogSummary>();
+		if (date == null) {
+			return list;
+		}
+		try {
+			conn = dbCon.getConnection();
+			pstmt = conn.prepareStatement(AD_LOG_SUMMARY_OF_DATE);
+			pstmt.setTimestamp(1, new Timestamp(DateUtil.parse(date).getTime()));
+			pstmt.setTimestamp(2, new Timestamp(DateUtil.parse(DateUtil.addDate(date, 1)).getTime()));
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				AdLogSummary row = new AdLogSummary();
+				row.setUrl(rs.getString("url"));
+				row.setCount(rs.getInt("count"));
 				list.add(row);
 			}
 			

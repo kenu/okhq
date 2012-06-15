@@ -9,7 +9,19 @@ text-align: right;
 color: #f00;
 font-weight: bold;
 }
+.anchor {
+	background-color: #ddd;
+	font-weight: bold;
+}
+.anchor, .referer {
+	width: 200px;
+	height: 12px;
+	overflow: hidden;
+}
 table {
 border: 1px solid #ccc;
 margin: 0 auto;
+}
+tr:nth-child(even) {
+	background-color: #f8f8f8;
 }

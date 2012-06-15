@@ -19,7 +19,7 @@
 	AdLogStatDao dao = new AdLogStatDao();
 	List<AdLogStatDto> list = dao.getList();
 	for (AdLogStatDto row : list) {
-%><tr><td><a href="clickDetail.jsp?d=<%= row.getLdate() %>"><%= row.getLdate() %></a></td>
+%><tr><td><a href="clickSummary.jsp?d=<%= row.getLdate() %>"><%= row.getLdate() %></a></td>
 <td class="number"><%= row.getLcount() %></td></tr>
 <%
 	}

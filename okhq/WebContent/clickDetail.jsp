@@ -22,9 +22,16 @@
 <%
 	AdLogStatDao dao = new AdLogStatDao();
 	List<AdLog> list = dao.getHistory(date);
+	String old = "";
 	for (AdLog row : list) {
+		if (!old.equals(row.getUrl())) {
+			old = row.getUrl();
+%><tr><td class="anchor"><a name="<%= row.getUrl() %>"><%= row.getUrl() %></a></td></tr>
+<%
+		}
 %><tr><td><%= row.getUrl() %></td><td class="number"><%= row.getCredate().toString().substring(0,19) %></td>
-<td><%= row.getIp() %></td></tr>
+<td><a href="http://<%= row.getIp() %>.ipaddress.com/" target="_blank"><%= row.getIp() %></a></td>
+<td class="referer"><%= row.getReferer() %></td></tr>
 <%
 	}
 %>
