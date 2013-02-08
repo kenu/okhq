@@ -25,5 +25,6 @@
 	}
 %>
 </table>
+<jsp:include page="/navigation.jsp"></jsp:include>
 </body>
 </html>

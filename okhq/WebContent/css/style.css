@@ -25,3 +25,19 @@ margin: 0 auto;
 tr:nth-child(even) {
 	background-color: #f8f8f8;
 }
+
+#nav {
+	width: 140px;
+	padding: 6px;
+	margin: 4px;
+	float: left;
+	position: absolute;
+	top: 0;
+	border: 1px solid #ddd;
+	background-color: #eee;
+	-webkit-border-radius : 10px;
+}
+#nav ul {
+	list-style: none;
+	padding: 0;
+}
