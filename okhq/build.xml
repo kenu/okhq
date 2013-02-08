@@ -3,7 +3,8 @@
 	<description>
             description
     </description>
-	<property name="catalina.home" value="/Users/kenu/okjsp/apache-tomcat-7.0.20" />
+	<property file="/etc/build.properties"/>
+	<property name="catalina.home" value="/Users/kenu/java/apache-tomcat-7.0.28" />
 	<path id="compile.classpath">
 		<fileset dir="${catalina.home}/lib">
 			<include name="*.jar" />
