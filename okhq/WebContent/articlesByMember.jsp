@@ -39,7 +39,7 @@
 <td class="title"><%= row.getSubject() %></td>
 <td class="preview"><%= row.getContent() %></td>
 <td><%= row.getWhen("yyyy-MM-dd HH:mm:ss") %></td>
-<td class="number"><%= row.getSeq() %></td>
+<td class="number"><a href="/seq/<%= row.getSeq() %>" target="_blank"><%= row.getSeq() %></a></td>
 <td><%= row.getWriter() %></td>
 <td class="number"><%= row.getRead() %></td>
 <td class="number"><%= row.getMemo() %></td>

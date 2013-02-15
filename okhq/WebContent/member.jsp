@@ -39,7 +39,7 @@
 <td class="number"><%= row.getSid() %></td>
 <td><%= row.getId() %></td>
 <td><%= row.getPoint() %></td>
-<td><a href="./articlesByMember.jsp?sid=<%= row.getSid() %>">글이력</a></td>
+<td><a href="./articlesByMember.jsp?sid=<%= row.getSid() %>" target="_blank">글이력</a></td>
 </tr>
 <%
 	}
