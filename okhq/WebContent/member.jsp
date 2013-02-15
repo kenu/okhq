@@ -23,10 +23,11 @@
 <th>연번</th>
 <th>아이디</th>
 <th>포인트</th>
+<th>글보기</th>
 </tr>
 <%
 	MemberDao dao = new MemberDao();
-	List<Member> list = dao.getList(500);
+	List<Member> list = dao.getList();
 	int count = 0;
 	for (Member row : list) {
 %><tr>
@@ -38,6 +39,7 @@
 <td class="number"><%= row.getSid() %></td>
 <td><%= row.getId() %></td>
 <td><%= row.getPoint() %></td>
+<td><a href="./articlesByMember.jsp?sid=<%= row.getSid() %>">글이력</a></td>
 </tr>
 <%
 	}

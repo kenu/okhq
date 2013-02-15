@@ -5,6 +5,16 @@ font-size: smaller;
 .number {
 text-align: right;
 }
+.title {
+text-align: left;
+}
+.preview {
+	width: 200px;
+	height: 10px;
+	overflow: hidden;
+	display: block;
+	text-align: left;
+}
 .warning {
 color: #f00;
 font-weight: bold;
