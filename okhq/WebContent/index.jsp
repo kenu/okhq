@@ -16,8 +16,9 @@
 <table>
 <tr><th>Date</th><th>Click</th></tr>
 <%
+	String yyyyMM = request.getParameter("yyyyMM");
 	AdLogStatDao dao = new AdLogStatDao();
-	List<AdLogStatDto> list = dao.getList();
+	List<AdLogStatDto> list = dao.getListByMonth(yyyyMM);
 	for (AdLogStatDto row : list) {
 %><tr><td><a href="clickSummary.jsp?d=<%= row.getLdate() %>"><%= row.getLdate() %></a></td>
 <td class="number"><%= row.getLcount() %></td></tr>
@@ -25,6 +26,28 @@
 	}
 %>
 </table>
+<div>
+<form action="./" method="get">
+<select name="yyyyMM">
+<option>201306</option>
+<option>201305</option>
+<option>201304</option>
+<option>201303</option>
+<option>201302</option>
+<option>201301</option>
+<option>201212</option>
+<option>201211</option>
+<option>201210</option>
+<option>201209</option>
+<option>201208</option>
+<option>201207</option>
+<option>201206</option>
+<option>201205</option>
+<option>201204</option>
+</select>
+<input type="submit" value="조회">
+</form>
+</div>
 <jsp:include page="/navigation.jsp"></jsp:include>
 </body>
 </html>

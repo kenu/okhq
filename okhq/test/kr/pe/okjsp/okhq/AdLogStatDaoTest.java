@@ -12,6 +12,12 @@ public class AdLogStatDaoTest extends TestCase {
 		assertTrue(0 < result);
 	}
 	
+	public void testGetNextMonth() {
+		AdLogStatDao dao = new AdLogStatDao();
+		String nextMonth = dao.getNextMonth("201306");
+		assertEquals("201307", nextMonth);
+	}
+	
 	public void testGetHistoryDate() {
 		AdLogStatDao dao = new AdLogStatDao();
 		List<AdLog> list = dao.getHistory("2012-05-01");
