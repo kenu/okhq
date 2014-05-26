@@ -17,14 +17,14 @@ import kr.pe.okjsp.util.DbCon;
 
 public class AdLogStatDao {
 
-	private String AD_LOG_STAT = "select date_format(credate, '%Y-%m-%d') as ldate, " +
-			"count(date_format(credate, '%Y-%m-%d')) as lcount " +
-			"from okad_log group by date_format(credate, '%Y-%m-%d') order by 1 desc";
-	private String AD_LOG_STAT_BY_MONTH = "select date_format(credate, '%Y-%m-%d') as ldate, " +
-			"count(date_format(credate, '%Y-%m-%d')) as lcount " +
-			"from okad_log where credate between CAST(TO_DATE(?,'YYYYMM') AS TIMESTAMP) " +
-			"and CAST(TO_DATE(?,'YYYYMM') AS TIMESTAMP) " +
-			"group by date_format(credate, '%Y-%m-%d') order by 1 desc";
+	private String AD_LOG_STAT = "select date_format(credate, '%Y-%m-%d') as ldate, "
+			+ "count(date_format(credate, '%Y-%m-%d')) as lcount "
+			+ "from okad_log group by date_format(credate, '%Y-%m-%d') order by 1 desc";
+	private String AD_LOG_STAT_BY_MONTH = "select date_format(credate, '%Y-%m-%d') as ldate, "
+			+ "count(date_format(credate, '%Y-%m-%d')) as lcount "
+			+ "from okad_log where credate between CAST(TO_DATE(?,'YYYYMM') AS TIMESTAMP) "
+			+ "and CAST(TO_DATE(?,'YYYYMM') AS TIMESTAMP) "
+			+ "group by date_format(credate, '%Y-%m-%d') order by 1 desc";
 	private String AD_LOG_HISTORY = "select * from okad_log where url like 'app%' order by 1 desc limit 500";
 	private String AD_LOG_HISTORY_OF_DATE = "select * from okad_log where credate between ? and ? order by url desc";
 	private String AD_LOG_SUMMARY_OF_DATE = "select url, count(*) `count` from okad_log where credate between ? and ? group by url";
@@ -34,9 +34,9 @@ public class AdLogStatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		List<AdLogStatDto> list = new ArrayList<AdLogStatDto>();
-		
+
 		try {
 			conn = dbCon.getConnection();
 			pstmt = conn.prepareStatement(AD_LOG_STAT);
@@ -47,33 +47,32 @@ public class AdLogStatDao {
 				row.setLcount(rs.getInt("lcount"));
 				list.add(row);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
 		return list;
-		
+
 	}
 
 	public List<AdLogStatDto> getListByMonth(String yyyyMM) {
 		if (yyyyMM == null) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
-			yyyyMM = sdf.format(new Date());
+			yyyyMM = getCurrentMonth();
 		}
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		List<AdLogStatDto> list = new ArrayList<AdLogStatDto>();
-		
+
 		try {
 			conn = dbCon.getConnection();
 			pstmt = conn.prepareStatement(AD_LOG_STAT_BY_MONTH);
 			pstmt.setString(1, yyyyMM);
 			pstmt.setString(2, getNextMonth(yyyyMM));
-			
+
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				AdLogStatDto row = new AdLogStatDto();
@@ -81,14 +80,19 @@ public class AdLogStatDao {
 				row.setLcount(rs.getInt("lcount"));
 				list.add(row);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
 		return list;
-		
+
+	}
+
+	public String getCurrentMonth() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+		return sdf.format(new Date());
 	}
 
 	public String getNextMonth(String yyyyMM) {
@@ -110,9 +114,9 @@ public class AdLogStatDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		List<AdLog> list = new ArrayList<AdLog>();
-		
+
 		try {
 			conn = dbCon.getConnection();
 			pstmt = conn.prepareStatement(AD_LOG_HISTORY);
@@ -135,11 +139,12 @@ public class AdLogStatDao {
 		return list;
 
 	}
+
 	public List<AdLog> getHistory(String date) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		List<AdLog> list = new ArrayList<AdLog>();
 		if (date == null) {
 			return list;
@@ -148,7 +153,9 @@ public class AdLogStatDao {
 			conn = dbCon.getConnection();
 			pstmt = conn.prepareStatement(AD_LOG_HISTORY_OF_DATE);
 			pstmt.setTimestamp(1, new Timestamp(DateUtil.parse(date).getTime()));
-			pstmt.setTimestamp(2, new Timestamp(DateUtil.parse(DateUtil.addDate(date, 1)).getTime()));
+			pstmt.setTimestamp(2,
+					new Timestamp(DateUtil.parse(DateUtil.addDate(date, 1))
+							.getTime()));
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				AdLog row = new AdLog();
@@ -159,20 +166,21 @@ public class AdLogStatDao {
 				row.setIp(rs.getString("ip"));
 				list.add(row);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
 		return list;
-		
+
 	}
+
 	public List<AdLogSummary> getSummary(String date) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		List<AdLogSummary> list = new ArrayList<AdLogSummary>();
 		if (date == null) {
 			return list;
@@ -181,7 +189,9 @@ public class AdLogStatDao {
 			conn = dbCon.getConnection();
 			pstmt = conn.prepareStatement(AD_LOG_SUMMARY_OF_DATE);
 			pstmt.setTimestamp(1, new Timestamp(DateUtil.parse(date).getTime()));
-			pstmt.setTimestamp(2, new Timestamp(DateUtil.parse(DateUtil.addDate(date, 1)).getTime()));
+			pstmt.setTimestamp(2,
+					new Timestamp(DateUtil.parse(DateUtil.addDate(date, 1))
+							.getTime()));
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				AdLogSummary row = new AdLogSummary();
@@ -189,14 +199,14 @@ public class AdLogStatDao {
 				row.setCount(rs.getInt("count"));
 				list.add(row);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
 		return list;
-		
+
 	}
 
 }

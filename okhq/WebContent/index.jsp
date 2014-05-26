@@ -29,6 +29,18 @@
 <div>
 <form action="./" method="get">
 <select name="yyyyMM">
+<option>201406</option>
+<option>201405</option>
+<option>201404</option>
+<option>201403</option>
+<option>201402</option>
+<option>201401</option>
+<option>201312</option>
+<option>201311</option>
+<option>201310</option>
+<option>201309</option>
+<option>201308</option>
+<option>201307</option>
 <option>201306</option>
 <option>201305</option>
 <option>201304</option>
