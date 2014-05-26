@@ -51,7 +51,8 @@ public class MemberDao extends MemberHandler {
 		return list;
 	}
 	
-	public List<Member> getList(int limit) {
+	public List<Member> getList(int page) {
+		int limit = 500 * page;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -60,7 +61,7 @@ public class MemberDao extends MemberHandler {
 		
 		try {
 			conn = dbCon.getConnection();
-			pstmt = conn.prepareStatement(OKMEMBER_LIST + " limit "+ limit);
+			pstmt = conn.prepareStatement(OKMEMBER_LIST + " limit "+ limit + ", " + 500);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				list.add(getMember(rs));

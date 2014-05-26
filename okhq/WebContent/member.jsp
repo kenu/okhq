@@ -26,12 +26,23 @@
 <th>글보기</th>
 </tr>
 <%
-	MemberDao dao = new MemberDao();
-	List<Member> list = dao.getList();
+	int pageNo = 0;
+    String p = request.getParameter("page");
+
+    MemberDao dao = new MemberDao();
+    List<Member> list = null;
+	if ("all".equals(p)) {
+		list = dao.getList();
+	} else if (p != null) {
+		pageNo = Integer.parseInt(request.getParameter("page"));
+	    list = dao.getList(pageNo);
+	} else {
+		list = dao.getList(0);
+	}
 	int count = 0;
 	for (Member row : list) {
 %><tr>
-<td><%= ++count %></td>
+<td><%= ++count + pageNo * 500 %></td>
 <td><%= row.getName() %></td>
 <td><%= row.getEmail() %></td>
 <td><%= row.getMailing() %></td>
@@ -44,7 +55,13 @@
 <%
 	}
 %>
+<tr><td colspan="9">
+<a href="javascript:history.back();" >back</a>
+<a href="./member.jsp?page=<%= pageNo + 1 %>">next <%= pageNo + 1 %></a>
+<a href="./member.jsp?page=all">all</a>
+</td></tr>
 </table>
+<jsp:include page="/navigation.jsp"></jsp:include>
 </body>
 </html>
 
