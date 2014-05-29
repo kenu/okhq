@@ -6,14 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import kr.pe.okjsp.member.Member;
 import kr.pe.okjsp.member.MemberHandler;
 import kr.pe.okjsp.util.DbCon;
 
 public class MemberDao extends MemberHandler {
-	private final String OKMEMBER_LIST = "select * from okmember order by sid desc";
-	private final String MAILING_LIST = "select * from okmember where mailing = 'Y   ' order by sid";
+	private static final String OKMEMBER_LIST = "select * from okmember order by sid desc";
+	private static final String MAILING_LIST = "select * from okmember where mailing = 'Y   ' order by sid";
+	private static Logger logger = Logger.getLogger("OKHQ-LOG");
+
 	DbCon dbCon = new DbCon();
 
 	private Member getMember(ResultSet rs) throws SQLException {
@@ -44,7 +47,7 @@ public class MemberDao extends MemberHandler {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.toString());
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
@@ -68,7 +71,7 @@ public class MemberDao extends MemberHandler {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.toString());
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
@@ -91,7 +94,7 @@ public class MemberDao extends MemberHandler {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.toString());
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}

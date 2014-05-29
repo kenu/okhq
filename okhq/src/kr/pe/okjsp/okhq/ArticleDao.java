@@ -6,15 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import kr.pe.okjsp.Article;
 import kr.pe.okjsp.member.MemberHandler;
 import kr.pe.okjsp.util.DbCon;
 
 public class ArticleDao extends MemberHandler {
-	private final String OKBOARD_LIST_BY_SID = "select * from okboard where id = ? order by seq desc";
-	DbCon dbCon = new DbCon();
+	private static final String OKBOARD_LIST_BY_SID = "select * from okboard where id = ? order by seq desc";
 	
+	private static Logger logger = Logger.getLogger("OKHQ-LOG");
+	
+	DbCon dbCon = new DbCon();
 
 	private Article getArticle(ResultSet rs) throws SQLException {
 		Article row = new Article();
@@ -45,8 +48,8 @@ public class ArticleDao extends MemberHandler {
 				list.add(getArticle(rs));
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.info(e.toString());
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}

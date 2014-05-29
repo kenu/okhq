@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import kr.pe.okjsp.ad.AdLog;
 import kr.pe.okjsp.util.DateUtil;
 import kr.pe.okjsp.util.DbCon;
 
 public class AdLogStatDao {
+	private static Logger logger = Logger.getLogger("OKHQ-LOG");
 
 	private String AD_LOG_STAT = "select date_format(credate, '%Y-%m-%d') as ldate, "
 			+ "count(date_format(credate, '%Y-%m-%d')) as lcount "
@@ -49,7 +51,7 @@ public class AdLogStatDao {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.toString());
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
@@ -82,7 +84,7 @@ public class AdLogStatDao {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.toString());
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
@@ -105,7 +107,7 @@ public class AdLogStatDao {
 			cal.add(Calendar.MONTH, 1);
 			nextMonth = sdf.format(cal.getTime());
 		} catch (ParseException e) {
-			e.printStackTrace();
+			logger.info(e.toString());
 		}
 		return nextMonth;
 	}
@@ -132,7 +134,7 @@ public class AdLogStatDao {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.toString());
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
@@ -168,7 +170,7 @@ public class AdLogStatDao {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.toString());
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
@@ -201,7 +203,7 @@ public class AdLogStatDao {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.info(e.toString());
 		} finally {
 			dbCon.close(conn, pstmt, rs);
 		}
